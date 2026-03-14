@@ -1,5 +1,7 @@
 import React from 'react';
 import './Hero.css';
+import './Projects/Projects.css';
+import { FaLinkedin, FaGithub, FaEnvelope } from 'react-icons/fa';
 
 export default function Hero() {
   return (
@@ -25,5 +27,10 @@ export default function Hero() {
         <div className="vLine"></div>
       </div>
     </section>
+
+    
   );
+
+  
 }
+
