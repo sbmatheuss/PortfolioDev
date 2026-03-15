@@ -8,12 +8,15 @@ body { margin: 0; padding: 0; font-family: 'Inter', sans-serif;  background-colo
   position: relative;
   background: url('../public/images/3201272.jpg') no-repeat center center/cover;
   background-attachment: fixed;
+  margin-bottom: -1px;
 
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
 }
+
+
 
 .heroContainer p {
    color: white;
@@ -22,6 +25,34 @@ body { margin: 0; padding: 0; font-family: 'Inter', sans-serif;  background-colo
 
  
 .name { font-size: 4rem; margin: 10px 0; color: #a0e9ff; }
+
+.typing-effect {
+  font-family: monospace;
+  font-size: 2rem; /* Fontes mono funcionam melhor para esse efeito */
+  border-right: 3px solid #d2b48c; 
+  white-space: nowrap;
+  overflow: hidden;
+  
+  /* --- O CONSERTO ESTÁ AQUI --- */
+  display: inline-block; /* Faz o container abraçar o texto */
+  width: 0;              /* Começa zerado */
+  
+  /* Ajuste o 'steps' para o número aproximado de letras da sua frase */
+  animation: 
+    typing 3s steps(24) forwards, 
+    blink-caret 0.75s step-end infinite;
+}
+
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% } /* Agora 100% será apenas o tamanho do texto */
+}
+
+@keyframes blink-caret {
+  from, to { border-color: transparent }
+  50% { border-color: #ffffff }
+}
+
 .scroll { position: absolute; bottom: 30px; display: flex; flex-direction: column; align-items: center; letter-spacing: 4px; font-size: 0.7rem;  color: white;}
 .vLine { width: 1px; height: 50px; background-color: rgb(255, 255, 255); margin-top: 10px; }
 

@@ -11,7 +11,7 @@ export default function Hero() {
         <div className="content">
           <p>Olá, visitante! 👋</p>
           <h1 className="name">Meu nome é Matheus Braga</h1>
-          <p style={{ letterSpacing: '2px', color: '#ffffff' }}>Desenvolvedor Full-Stack</p>
+          <p className="typing-effect">Desenvolvedor Full-Stack</p>
         </div>
         <div className="scroll"><span>ROLAR</span><div className="vLine"></div></div>
       </section>
