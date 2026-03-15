@@ -1,7 +1,7 @@
 import React from 'react';
 import './Hero.css';
 import { FaLinkedin, FaGithub, FaEnvelope, FaReact, FaNodeJs, FaDatabase } from 'react-icons/fa';
-import { SiTypescript, SiNextdotjs, SiTailwindcss } from 'react-icons/si';
+import { SiTypescript, SiNextdotjs, SiTailwindcss, SiJavascript } from 'react-icons/si';
 
 export default function Hero() {
   return (
@@ -11,7 +11,7 @@ export default function Hero() {
         <div className="content">
           <p>Olá, visitante! 👋</p>
           <h1 className="name">Meu nome é Matheus Braga</h1>
-          <p style={{ letterSpacing: '2px', color: '#ccc' }}>Desenvolvedor Full-Stack</p>
+          <p style={{ letterSpacing: '2px', color: '#ffffff' }}>Desenvolvedor Full-Stack</p>
         </div>
         <div className="scroll"><span>ROLAR</span><div className="vLine"></div></div>
       </section>
@@ -28,6 +28,8 @@ export default function Hero() {
               <span className="tech-item"><FaReact /> React</span>
               <span className="tech-item"><SiNextdotjs /> Next.js</span>
               <span className="tech-item"><SiTypescript /> TS</span>
+              <span className="tech-item"><FaNodeJs /> Node.js</span>
+              <span className="tech-item"><FaDatabase /> PostgreSQL</span>
             </div>
           </div>
         </div>

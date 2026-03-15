@@ -1,36 +1,37 @@
 /* --- ESTILOS GERAIS --- */
-body { margin: 0; padding: 0; font-family: 'Inter', sans-serif; background: #000; color: white; }
+body { margin: 0; padding: 0; font-family: 'Inter', sans-serif;  background-color: #121212; color: #e0d5c1; }
 
 /* --- 1. HERO --- */
 .heroContainer {
   height: 100vh;
   width: 100%;
-  background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
-              url('../public/images/sobre.jpg') no-repeat center center/cover;
+  position: relative;
+  background: url('../public/images/3201272.jpg') no-repeat center center/cover;
   background-attachment: fixed;
+
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
 }
 
-.name { font-size: 4rem; margin: 10px 0; }
-.scroll { position: absolute; bottom: 30px; display: flex; flex-direction: column; align-items: center; letter-spacing: 4px; font-size: 0.7rem; }
-.vLine { width: 1px; height: 50px; background-color: white; margin-top: 10px; }
+.heroContainer p {
+   color: white;
+}
+
+
+ 
+.name { font-size: 4rem; margin: 10px 0; color: #a0e9ff; }
+.scroll { position: absolute; bottom: 30px; display: flex; flex-direction: column; align-items: center; letter-spacing: 4px; font-size: 0.7rem;  color: white;}
+.vLine { width: 1px; height: 50px; background-color: rgb(255, 255, 255); margin-top: 10px; }
 
 /* --- 2. SOBRE MIM (Com Imagem) --- */
 .about-section { 
   padding: 100px 20px; 
-  position: relative;
-  background: url('../public/images/sobre.jpg') no-repeat center center/cover;
+  background: url('../public/images/3201272.jpg') no-repeat center center/cover;
   background-attachment: fixed;
 }
 
-/* Camada escura para legibilidade */
-.about-section::before {
-  content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-  background: rgba(0, 0, 0, 0.85); z-index: 0;
-}
 
 .image-placeholder img { width: 100%; height: 100%; object-fit: cover; border-radius: 15px; }
 
@@ -42,59 +43,71 @@ body { margin: 0; padding: 0; font-family: 'Inter', sans-serif; background: #000
   font-size: 1.1rem;
   line-height: 1.6;
   letter-spacing: 0.4px;
-  color: #d1cbc1;
+  color: rgb(255, 255, 255);
+  background-color: #000000;
+  border: #71b7f9 solid 1px;
+  border-radius: 50px;
+  padding: 20px;
   margin-top: 15px; 
   text-align: justify;
   text-justify: inter-word;
   margin-bottom: 25px;
+  text-shadow: 0 1px 3px rgb(0, 0, 0);
 
 }
 
 .image-placeholder { width: 250px; height: 250px; background: #333; display: flex; align-items: center; justify-content: center; border-radius: 15px; }
-.about-text { flex: 1; min-width: 300px; }
+.about-text { flex: 1; min-width: 300px; color: #ffffff; }
+.about-text h2 { font-size: 3rem; margin-bottom: 4px; color: #fafcff;  text-align: center;}
 .tech-stack { display: flex; flex-wrap: wrap; gap: 15px; margin-top: 20px; }
 .tech-item { display: flex; align-items: center; gap: 8px; background: #1a1a1a; padding: 8px 15px; border-radius: 8px; border: 1px solid #333; }
 
 /* --- 3. PROJETOS (Com Imagem) --- */
 .projects-section { 
   padding: 100px 20px; 
-  position: relative;
-  background: url('../public/images/sobre.jpg') no-repeat center center/cover;
+  
+  background: url('../public/images/3180663.jpg') no-repeat center;
   background-attachment: fixed;
   text-align: center; 
 }
 
 .projects-section::before {
   content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-  background: rgba(0, 0, 0, 0.85); z-index: 0;
+  
 }
 
-.section-title { position: relative; z-index: 1; margin-bottom: 40px; font-size: 2.5rem; }
+.section-title { position: relative; z-index: 1; margin-bottom: 40px; font-size: 2.5rem; color: #fefefe;  /* Cor de café com leite/bronze para o título */ }
 .projects-grid { 
   position: relative; z-index: 1; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
   gap: 20px; max-width: 1000px; margin: 40px auto; 
 }
 .project-card { 
   background: #161616; padding: 30px; border-radius: 10px; 
-  border: 1px solid #333; transition: 0.3s; 
+  border: 1px solid #fffbfb; transition: 0.3s; 
 }
-.project-card:hover { border-color: #fff; transform: translateY(-10px); }
-.project-card a { color: #fff; text-decoration: none; font-weight: bold; display: block; margin-top: 15px; }
+.project-card:hover { border-color: #35ff56; transform: translateY(-10px); }
+.project-card a { color: #f5f5f5; text-decoration: none; font-weight: bold; display: block; margin-top: 15px; }
 
 /* --- 4. CONTATO - PALETA CAFÉ --- */
 .contact-section { 
   padding: 100px 20px; 
   /* Gradiente linear com tons de café e terra */
-  background: linear-gradient(135deg, #2d1e18 0%, #1a120b 100%); 
-  color: #e0d5c1; /* Um tom de creme para o texto, mais suave que branco puro */
+  
+  background: url('../public/images/3180663.jpg') no-repeat center center;
+  background-attachment: fixed;
   text-align: center; 
-  border-top: 2px solid #4a3728; /* Borda sutil em tom de terra */
 }
 
 .contact-section h2 {
   font-size: 2.5rem;
-  color: #d2b48c; /* Cor de café com leite/bronze para o título */
+  color: #ffffff; /* Cor de café com leite/bronze para o título */
   margin-bottom: 15px;
+}
+
+.contact-section p {
+  font-size: 1.3rem;
+  color: #ffffff; /* Cor de café com leite para o texto */
+  margin-bottom: 30px;
 }
 
 .contact-links { 
@@ -103,22 +116,26 @@ body { margin: 0; padding: 0; font-family: 'Inter', sans-serif; background: #000
 }
 
 .contact-links a { 
-  color: #e0d5c1; 
+  color: #ffffff; 
   text-decoration: none; 
   display: flex; 
   align-items: center; 
   gap: 12px; 
   padding: 12px 20px; 
-  border: 1px solid #4a3728;
+  border: 1px solid #ffffff;
   border-radius: 8px;
   transition: all 0.3s ease;
 }
 
 .contact-links a:hover { 
-  background-color: #4a3728; 
-  color: #ffffff;
+  background-color: #18a31e; 
+  color: #000000;
   transform: translateY(-5px);
 }
+
+
+
+
 
 /* --- RESPONSIVIDADE --- */
 @media (max-width: 768px) {
