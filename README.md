@@ -22,7 +22,7 @@
 
 <div align="center">
 
-> 🔗 **[Acesse o portfólio ao vivo](#)** ← substitua com seu link após o deploy
+
 
 </div>
 
