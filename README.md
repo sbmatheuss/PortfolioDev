@@ -16,9 +16,7 @@
 
 </div>
 
----
 
-## 📸 Preview
 
 <div align="center">
 
