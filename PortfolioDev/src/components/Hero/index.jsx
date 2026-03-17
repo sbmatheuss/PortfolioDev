@@ -52,33 +52,21 @@ function useInView(threshold = 0.15) {
 
 function useTyping(text, speed = 40) {
   const [displayed, setDisplayed] = useState("");
-  const indexRef = useRef(0);
-  const intervalRef = useRef(null);
-  const textRef = useRef(text);
+  const started = useRef(false);
 
   useEffect(() => {
-    if (!text) return;
+    if (!text || started.current) return;
+    started.current = true;
 
-    textRef.current = text;
-    indexRef.current = 0;
+    let i = 0;
+    const id = setInterval(() => {
+      i += 1;
+      setDisplayed(text.slice(0, i));
+      if (i >= text.length) clearInterval(id);
+    }, speed);
 
-    if (intervalRef.current) clearInterval(intervalRef.current);
-
-    const tick = () => {
-      indexRef.current += 1;
-      const next = textRef.current.slice(0, indexRef.current);
-      setDisplayed(next);
-      if (indexRef.current >= textRef.current.length) {
-        clearInterval(intervalRef.current);
-      }
-    };
-
-    intervalRef.current = setInterval(tick, speed);
-
-    return () => {
-      clearInterval(intervalRef.current);
-    };
-  }, [text, speed]);
+    return () => clearInterval(id);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return displayed;
 }
@@ -86,6 +74,8 @@ function useTyping(text, speed = 40) {
 // ─── NAV ─────────────────────────────────────────────────────────────────────
 function NavBar({ active }) {
   const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+
   useEffect(() => {
     const fn = () => setScrolled(window.scrollY > 40);
     window.addEventListener("scroll", fn);
@@ -95,31 +85,53 @@ function NavBar({ active }) {
   const links = ["inicio", "sobre", "habilidades", "formacao", "projetos", "contato"];
   const labels = ["Início", "Sobre", "Habilidades", "Formação", "Projetos", "Contato"];
 
+  const handleNav = () => setMenuOpen(false);
+
   return (
-    <nav style={{
-      position: "fixed", top: 0, left: 0, right: 0, zIndex: 100,
-      background: scrolled ? "rgba(250,250,248,0.96)" : "transparent",
-      backdropFilter: scrolled ? "blur(20px)" : "none",
-      borderBottom: scrolled ? "1px solid rgba(0,0,0,0.08)" : "none",
-      transition: "all 0.4s ease", padding: "0 2rem",
-    }}>
-      <div style={{ maxWidth: 1200, margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "space-between", height: 64 }}>
-        <span style={{ fontFamily: "'Playfair Display', serif", color: "#0a0a0a", fontWeight: 700, fontSize: "1.2rem", letterSpacing: -0.5 }}>MSB</span>
-        <div style={{ display: "flex", gap: "2.5rem" }}>
-          {links.map((l, i) => (
-            <a key={l} href={`#${l}`} style={{
-              fontFamily: "'DM Sans', sans-serif", fontSize: "0.82rem", letterSpacing: 0.5,
-              color: active === l ? "#059669" : "#6b7280",
-              textDecoration: "none", transition: "color 0.3s",
-              textTransform: "uppercase", fontWeight: active === l ? 600 : 400,
-            }}
-              onMouseEnter={e => e.target.style.color = "#059669"}
-              onMouseLeave={e => e.target.style.color = active === l ? "#059669" : "#6b7280"}
-            >{labels[i]}</a>
-          ))}
+    <>
+      <nav style={{
+        position: "fixed", top: 0, left: 0, right: 0, zIndex: 100,
+        background: scrolled || menuOpen ? "rgba(250,250,248,0.96)" : "transparent",
+        backdropFilter: scrolled || menuOpen ? "blur(20px)" : "none",
+        borderBottom: scrolled || menuOpen ? "1px solid rgba(0,0,0,0.08)" : "none",
+        transition: "all 0.4s ease", padding: "0 2rem",
+      }}>
+        <div style={{ maxWidth: 1200, margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "space-between", height: 64 }}>
+          <span style={{ fontFamily: "'Playfair Display', serif", color: "#0a0a0a", fontWeight: 700, fontSize: "1.2rem", letterSpacing: -0.5 }}>MSB</span>
+
+          {/* Desktop links */}
+          <div style={{ display: "flex", gap: "2.5rem" }}>
+            {links.map((l, i) => (
+              <a key={l} href={`#${l}`} style={{
+                fontFamily: "'DM Sans', sans-serif", fontSize: "0.82rem", letterSpacing: 0.5,
+                color: active === l ? "#059669" : "#6b7280",
+                textDecoration: "none", transition: "color 0.3s",
+                textTransform: "uppercase", fontWeight: active === l ? 600 : 400,
+              }}
+                onMouseEnter={e => e.target.style.color = "#059669"}
+                onMouseLeave={e => e.target.style.color = active === l ? "#059669" : "#6b7280"}
+              >{labels[i]}</a>
+            ))}
+          </div>
+
+          {/* Hamburguer */}
+          <button className="nav-hamburger" onClick={() => setMenuOpen(!menuOpen)} aria-label="Menu">
+            <span style={{ transform: menuOpen ? "rotate(45deg) translate(5px, 5px)" : "none", transition: "all 0.3s" }} />
+            <span style={{ opacity: menuOpen ? 0 : 1, transition: "all 0.3s" }} />
+            <span style={{ transform: menuOpen ? "rotate(-45deg) translate(5px, -5px)" : "none", transition: "all 0.3s" }} />
+          </button>
         </div>
+      </nav>
+
+      {/* Mobile menu */}
+      <div className={`nav-mobile-menu ${menuOpen ? "open" : ""}`}>
+        {links.map((l, i) => (
+          <a key={l} href={`#${l}`} className={active === l ? "active" : ""} onClick={handleNav}>
+            {labels[i]}
+          </a>
+        ))}
       </div>
-    </nav>
+    </>
   );
 }
 
@@ -128,14 +140,14 @@ function HeroSection() {
   const typed = useTyping(DATA.tagline, 40);
 
   return (
-    <section id="inicio" style={{ minHeight: "100vh", display: "flex", alignItems: "center", position: "relative", overflow: "hidden", padding: "0 2rem", background: "#fafaf8" }}>
+    <section id="inicio" className="hero-section" style={{ background: "#fafaf8" }}>
       <div style={{ position: "absolute", inset: 0, backgroundImage: "radial-gradient(circle, #d1d5db 1px, transparent 1px)", backgroundSize: "32px 32px", opacity: 0.5 }} />
-      <div style={{ position: "absolute", top: 0, right: 0, width: "40%", height: "100%", background: "linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%)", clipPath: "polygon(15% 0, 100% 0, 100% 100%, 0% 100%)", zIndex: 0 }} />
+      <div className="hero-accent-block" style={{ position: "absolute", top: 0, right: 0, width: "40%", height: "100%", background: "linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%)", clipPath: "polygon(15% 0, 100% 0, 100% 100%, 0% 100%)", zIndex: 0 }} />
 
-      <div style={{ maxWidth: 1200, margin: "0 auto", width: "100%", position: "relative", zIndex: 1, display: "grid", gridTemplateColumns: "1fr 1fr", gap: "4rem", alignItems: "center" }}>
+      <div className="hero-grid" style={{ position: "relative", zIndex: 1 }}>
         <div>
           <div style={{ animation: "fadeInUp 0.7s ease both 0.1s" }}>
-            <span style={{ display: "inline-block", fontFamily: "'DM Sans', sans-serif", fontSize: "0.78rem", fontWeight: 600, letterSpacing: 3, color: "#059669", textTransform: "uppercase", marginBottom: "1.5rem", padding: "0.4rem 1rem", background: "rgba(5,150,105,0.08)", borderRadius: 20, border: "1px solid rgba(5,150,105,0.2)" }}>
+            <span className="hero-badge" style={{ display: "inline-block", fontFamily: "'DM Sans', sans-serif", fontSize: "0.78rem", fontWeight: 600, letterSpacing: 3, color: "#059669", textTransform: "uppercase", marginBottom: "1.5rem", padding: "0.4rem 1rem", background: "rgba(5,150,105,0.08)", borderRadius: 20, border: "1px solid rgba(5,150,105,0.2)" }}>
               Disponível para oportunidades
             </span>
           </div>
@@ -147,7 +159,7 @@ function HeroSection() {
               {typed}<span style={{ color: "#059669", animation: "blink 1s step-end infinite" }}>|</span>
             </p>
           </div>
-          <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap", animation: "fadeInUp 0.7s ease both 0.5s" }}>
+          <div className="hero-actions" style={{ display: "flex", gap: "1rem", flexWrap: "wrap", animation: "fadeInUp 0.7s ease both 0.5s" }}>
             <a href="#projetos" style={{ padding: "0.85rem 2rem", borderRadius: 8, background: "#059669", color: "#fff", fontFamily: "'DM Sans', sans-serif", fontWeight: 600, fontSize: "0.88rem", textDecoration: "none", transition: "all 0.2s", boxShadow: "0 4px 20px rgba(5,150,105,0.3)" }}
               onMouseEnter={e => { e.currentTarget.style.background = "#047857"; e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = "0 8px 30px rgba(5,150,105,0.4)"; }}
               onMouseLeave={e => { e.currentTarget.style.background = "#059669"; e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "0 4px 20px rgba(5,150,105,0.3)"; }}
@@ -163,13 +175,13 @@ function HeroSection() {
           </div>
         </div>
 
-        <div style={{ animation: "fadeInUp 0.7s ease both 0.4s", display: "flex", flexDirection: "column", gap: "1.5rem" }}>
+        <div className="hero-stats">
           {[["23", "Anos de idade"], ["6+", "Projetos desenvolvidos"], ["10+", "Tecnologias dominadas"], ["ADS", "Cursando atualmente"]].map(([num, label]) => (
             <div key={label} style={{ display: "flex", alignItems: "center", gap: "1.5rem", padding: "1.2rem 1.8rem", borderRadius: 12, background: "#fff", border: "1px solid #e5e7eb", boxShadow: "0 2px 12px rgba(0,0,0,0.04)", transition: "all 0.25s" }}
               onMouseEnter={e => { e.currentTarget.style.borderColor = "#059669"; e.currentTarget.style.boxShadow = "0 4px 24px rgba(5,150,105,0.12)"; e.currentTarget.style.transform = "translateX(6px)"; }}
               onMouseLeave={e => { e.currentTarget.style.borderColor = "#e5e7eb"; e.currentTarget.style.boxShadow = "0 2px 12px rgba(0,0,0,0.04)"; e.currentTarget.style.transform = "translateX(0)"; }}
             >
-              <span style={{ fontFamily: "'Playfair Display', serif", fontSize: "2rem", fontWeight: 900, color: "#059669", minWidth: 60 }}>{num}</span>
+              <span className="hero-stat-number" style={{ fontFamily: "'Playfair Display', serif", fontSize: "2rem", fontWeight: 900, color: "#059669", minWidth: 60 }}>{num}</span>
               <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "0.88rem", color: "#6b7280" }}>{label}</span>
             </div>
           ))}
@@ -186,7 +198,7 @@ function SectionTitle({ number, title, visible, centered }) {
       <p style={{ fontFamily: "'DM Mono', monospace", fontSize: "0.72rem", color: "#059669", letterSpacing: 3, textTransform: "uppercase", marginBottom: "0.5rem" }}>{number}</p>
       <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(1.8rem, 4vw, 2.8rem)", fontWeight: 900, color: "#0a0a0a", letterSpacing: -1, display: "flex", alignItems: "center", gap: "1rem", justifyContent: centered ? "center" : "flex-start" }}>
         {title}
-        {!centered && <div style={{ flex: 1, height: 2, background: "linear-gradient(to right, #059669, transparent)", maxWidth: 200, borderRadius: 2 }} />}
+        {!centered && <div className="section-title-line" style={{ flex: 1, height: 2, background: "linear-gradient(to right, #059669, transparent)", maxWidth: 200, borderRadius: 2 }} />}
       </h2>
     </div>
   );
@@ -199,7 +211,7 @@ function AboutSection() {
     <section id="sobre" ref={ref} style={{ padding: "8rem 2rem", background: "#fff" }}>
       <div style={{ maxWidth: 1200, margin: "0 auto" }}>
         <SectionTitle number="01 — Sobre" title="Quem sou eu" visible={visible} />
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "5rem", alignItems: "start" }}>
+        <div className="about-grid">
           <div style={{ opacity: visible ? 1 : 0, transform: visible ? "translateX(0)" : "translateX(-30px)", transition: "all 0.7s ease 0.3s" }}>
             {DATA.about.split("\n\n").map((p, i) => (
               <p key={i} style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "1.02rem", color: "#374151", lineHeight: 1.95, marginBottom: "1.4rem" }}>{p}</p>
@@ -211,7 +223,7 @@ function AboutSection() {
           </div>
 
           <div style={{ opacity: visible ? 1 : 0, transform: visible ? "translateX(0)" : "translateX(30px)", transition: "all 0.7s ease 0.5s" }}>
-            <div style={{ padding: "2.5rem", borderRadius: 16, background: "#f9fafb", border: "1px solid #e5e7eb" }}>
+            <div className="profile-card" style={{ padding: "2.5rem", borderRadius: 16, background: "#f9fafb", border: "1px solid #e5e7eb" }}>
               <img
                 src={fotoPerfil}
                 alt="Matheus Silva Braga"
@@ -246,7 +258,7 @@ function SkillsSection() {
     <section id="habilidades" ref={ref} style={{ padding: "8rem 2rem", background: "#fafaf8" }}>
       <div style={{ maxWidth: 1200, margin: "0 auto" }}>
         <SectionTitle number="02 — Skills" title="Habilidades" visible={visible} />
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "1.5rem" }}>
+        <div className="skills-grid" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "1.5rem" }}>
           {DATA.skills.map((group, gi) => (
             <div key={group.category} style={{ padding: "2rem", borderRadius: 12, background: "#fff", border: "1px solid #e5e7eb", opacity: visible ? 1 : 0, transform: visible ? "translateY(0)" : "translateY(30px)", transition: `opacity 0.6s ease ${gi * 0.1 + 0.3}s, transform 0.6s ease ${gi * 0.1 + 0.3}s, border-color 0.3s, box-shadow 0.3s`, boxShadow: "0 2px 8px rgba(0,0,0,0.04)" }}
               onMouseEnter={e => { e.currentTarget.style.borderColor = "#059669"; e.currentTarget.style.boxShadow = "0 8px 30px rgba(5,150,105,0.1)"; }}
@@ -277,7 +289,7 @@ function EducationSection() {
     <section id="formacao" ref={ref} style={{ padding: "8rem 2rem", background: "#fff" }}>
       <div style={{ maxWidth: 1200, margin: "0 auto" }}>
         <SectionTitle number="03 — Educação" title="Formação" visible={visible} />
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "2rem" }}>
+        <div className="education-grid">
           <div style={{ opacity: visible ? 1 : 0, transform: visible ? "translateY(0)" : "translateY(30px)", transition: "all 0.7s ease 0.3s", padding: "2rem", borderRadius: 12, background: "#fafaf8", border: "1px solid #e5e7eb" }}>
             <div style={{ display: "flex", gap: "1rem", alignItems: "flex-start", marginBottom: "1.2rem" }}>
               <div style={{ width: 48, height: 48, borderRadius: 12, background: "#ecfdf5", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1.4rem", flexShrink: 0 }}>🎓</div>
@@ -382,7 +394,7 @@ function ProjectsSection() {
     <section id="projetos" ref={ref} style={{ padding: "8rem 2rem", background: "#fafaf8" }}>
       <div style={{ maxWidth: 1200, margin: "0 auto" }}>
         <SectionTitle number="04 — Work" title="Projetos" visible={visible} />
-        <div style={{ display: "flex", gap: "0.6rem", marginBottom: "3rem", opacity: visible ? 1 : 0, transition: "opacity 0.6s ease 0.3s" }}>
+        <div className="filter-buttons" style={{ opacity: visible ? 1 : 0, transition: "opacity 0.6s ease 0.3s" }}>
           {["todos", "destaques"].map(f => (
             <button key={f} onClick={() => setFilter(f)} style={{
               fontFamily: "'DM Sans', sans-serif", fontSize: "0.8rem", fontWeight: 600,
@@ -394,7 +406,7 @@ function ProjectsSection() {
             }}>{f}</button>
           ))}
         </div>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(340px, 1fr))", gap: "1.5rem" }}>
+        <div className="projects-grid">
           {shown.map((project, i) => (
             <ProjectCard key={project.id} project={project} visible={visible} index={i} />
           ))}
@@ -411,11 +423,11 @@ function ContactSection() {
     <section id="contato" ref={ref} style={{ padding: "8rem 2rem", background: "#0a0a0a" }}>
       <div style={{ maxWidth: 800, margin: "0 auto", textAlign: "center" }}>
         <p style={{ fontFamily: "'DM Mono', monospace", fontSize: "0.72rem", color: "#059669", letterSpacing: 3, textTransform: "uppercase", marginBottom: "1rem", opacity: visible ? 1 : 0, transition: "opacity 0.6s ease 0.1s" }}>05 — Contato</p>
-        <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(2rem, 5vw, 4rem)", fontWeight: 900, color: "#fff", letterSpacing: -2, marginBottom: "1.5rem", opacity: visible ? 1 : 0, transform: visible ? "translateY(0)" : "translateY(-20px)", transition: "all 0.7s ease 0.2s" }}>Vamos conversar?</h2>
+        <h2 className="contact-title" style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(2rem, 5vw, 4rem)", fontWeight: 900, color: "#fff", letterSpacing: -2, marginBottom: "1.5rem", opacity: visible ? 1 : 0, transform: visible ? "translateY(0)" : "translateY(-20px)", transition: "all 0.7s ease 0.2s" }}>Vamos conversar?</h2>
         <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "1.05rem", color: "#9ca3af", lineHeight: 1.8, marginBottom: "3.5rem", opacity: visible ? 1 : 0, transition: "opacity 0.7s ease 0.3s" }}>
           Estou em busca de oportunidades de estágio e projetos práticos.<br />Pode me chamar por aqui!
         </p>
-        <div style={{ display: "flex", justifyContent: "center", gap: "1.5rem", flexWrap: "wrap", marginBottom: "2.5rem", opacity: visible ? 1 : 0, transform: visible ? "translateY(0)" : "translateY(20px)", transition: "all 0.7s ease 0.4s" }}>
+        <div className="contact-cards" style={{ opacity: visible ? 1 : 0, transform: visible ? "translateY(0)" : "translateY(20px)", transition: "all 0.7s ease 0.4s" }}>
           {[
             { icon: "✉", label: "E-mail", value: DATA.email, href: `mailto:${DATA.email}` },
             { icon: "📱", label: "WhatsApp", value: DATA.phone, href: `https://wa.me/5573982546136` },
@@ -433,7 +445,7 @@ function ContactSection() {
             </a>
           ))}
         </div>
-        <div style={{ display: "flex", justifyContent: "center", gap: "1rem", opacity: visible ? 1 : 0, transform: visible ? "translateY(0)" : "translateY(20px)", transition: "all 0.7s ease 0.55s" }}>
+        <div className="social-buttons" style={{ opacity: visible ? 1 : 0, transform: visible ? "translateY(0)" : "translateY(20px)", transition: "all 0.7s ease 0.55s" }}>
           {[{ name: "LinkedIn", icon: "💼", url: DATA.linkedin }, { name: "GitHub", icon: "🐙", url: DATA.github }].map(s => (
             <a key={s.name} href={s.url} target="_blank" rel="noopener noreferrer"
               style={{ display: "flex", alignItems: "center", gap: "0.6rem", padding: "0.85rem 1.8rem", borderRadius: 10, background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)", textDecoration: "none", transition: "all 0.3s", fontFamily: "'DM Sans', sans-serif", fontSize: "0.85rem", fontWeight: 500, color: "#9ca3af" }}
