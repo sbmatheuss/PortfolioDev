@@ -146,11 +146,6 @@ function HeroSection() {
 
       <div className="hero-grid" style={{ position: "relative", zIndex: 1 }}>
         <div>
-          <div style={{ animation: "fadeInUp 0.7s ease both 0.1s" }}>
-            <span className="hero-badge" style={{ display: "inline-block", fontFamily: "'DM Sans', sans-serif", fontSize: "0.78rem", fontWeight: 600, letterSpacing: 3, color: "#059669", textTransform: "uppercase", marginBottom: "1.5rem", padding: "0.4rem 1rem", background: "rgba(5,150,105,0.08)", borderRadius: 20, border: "1px solid rgba(5,150,105,0.2)" }}>
-              Disponível para oportunidades
-            </span>
-          </div>
           <div style={{ animation: "fadeInUp 0.7s ease both 0.25s" }}>
             <h1 style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(2.5rem, 5vw, 4.5rem)", fontWeight: 900, lineHeight: 1.05, color: "#0a0a0a", marginBottom: "0.3rem", letterSpacing: -2 }}>Matheus</h1>
             <h1 style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(2.5rem, 5vw, 4.5rem)", fontWeight: 900, lineHeight: 1.05, color: "#059669", marginBottom: "1rem", letterSpacing: -2 }}>Silva Braga</h1>
