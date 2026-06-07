@@ -8,7 +8,7 @@ const fotoPerfil = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX
 const DATA = {
   name: "Matheus Silva Braga",
   age: 23,
-  role: "Full Stack Developer",
+  role: "Full Stack Developer Junior",
   tagline: "Transformando ideias em experiências digitais",
   email: "sbmatheus20@gmail.com",
   phone: "+55 (73) 98254-6136",
@@ -154,7 +154,7 @@ function HeroSection() {
           <div style={{ animation: "fadeInUp 0.7s ease both 0.25s" }}>
             <h1 style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(2.5rem, 5vw, 4.5rem)", fontWeight: 900, lineHeight: 1.05, color: "#0a0a0a", marginBottom: "0.3rem", letterSpacing: -2 }}>Matheus</h1>
             <h1 style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(2.5rem, 5vw, 4.5rem)", fontWeight: 900, lineHeight: 1.05, color: "#059669", marginBottom: "1rem", letterSpacing: -2 }}>Silva Braga</h1>
-            <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "1.15rem", fontWeight: 500, color: "#374151", marginBottom: "0.5rem" }}>Full Stack Developer em Formação</p>
+            <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "1.15rem", fontWeight: 500, color: "#374151", marginBottom: "0.5rem" }}>Full Stack Developer Junior</p>
             <p style={{ fontFamily: "'DM Mono', monospace", fontSize: "0.88rem", color: "#9ca3af", marginBottom: "2.5rem", minHeight: "1.4em" }}>
               {typed}<span style={{ color: "#059669", animation: "blink 1s step-end infinite" }}>|</span>
             </p>
@@ -230,7 +230,7 @@ function AboutSection() {
                 style={{ width: 100, height: 100, borderRadius: "50%", objectFit: "cover", objectPosition: "center top", marginBottom: "1.5rem", border: "3px solid #a7f3d0", boxShadow: "0 4px 20px rgba(5,150,105,0.2)" }}
               />
               <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: "1.2rem", fontWeight: 700, color: "#0a0a0a", marginBottom: "0.4rem" }}>Matheus Silva Braga</h3>
-              <p style={{ fontFamily: "'DM Mono', monospace", fontSize: "0.75rem", color: "#059669", marginBottom: "1.5rem" }}>Full Stack Dev em Formação</p>
+              <p style={{ fontFamily: "'DM Mono', monospace", fontSize: "0.75rem", color: "#059669", marginBottom: "1.5rem" }}>Full Stack Developer Junior</p>
               <div style={{ display: "flex", flexDirection: "column", gap: "0.8rem" }}>
                 {[["✉", DATA.email], ["📱", DATA.phone], ["🎓", "Análise e Desenvolvimento de Sistemas"], ["📍", "Brasil"]].map(([icon, val]) => (
                   <div key={val} style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
