@@ -1,4 +1,4 @@
-import { profile } from './data';
+import { profile, sections } from './data';
 import Sidebar from './components/Sidebar';
 import About from './components/About';
 import Projects from './components/Projects';
@@ -18,7 +18,7 @@ export default function App() {
         <Sidebar />
         <main id="conteudo" className="pb-16 pt-6 min-[960px]:pt-[72px]">
           <About />
-          <Projects />
+          {sections.some((s) => s.id === 'projetos') && <Projects />}
           <Experience />
           <Contact />
           <footer className="pt-3 font-mono text-[13px] text-muted">

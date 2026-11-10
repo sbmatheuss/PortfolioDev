@@ -1,6 +1,7 @@
 import { FaGithub, FaLinkedin } from 'react-icons/fa';
 import { FiDownload, FiMail } from 'react-icons/fi';
 import { profile, sections } from '../data';
+import foto from '../assets/foto-perfil.jpg';
 import useScrollSpy from '../hooks/useScrollSpy';
 import ThemeToggle from './ThemeToggle';
 import T from './T';
@@ -13,10 +14,18 @@ const iconLink =
 
 export default function Sidebar() {
   const active = useScrollSpy(ids);
-  const { name, role, stack, status, pitch, github, linkedin, cv, cvPlaceholder } = profile;
+  const { name, role, stack, status, pitch, github, linkedin, cv } = profile;
+  const hasProjects = sections.some((s) => s.id === 'projetos');
 
   return (
-    <header className="flex flex-col py-14 min-[960px]:sticky min-[960px]:top-0 min-[960px]:h-screen min-[960px]:overflow-y-auto">
+    <header className="flex flex-col py-12 min-[960px]:sticky min-[960px]:top-0 min-[960px]:h-screen min-[960px]:overflow-y-auto">
+      <img
+        src={foto}
+        alt={`Foto de ${name}`}
+        width="80"
+        height="80"
+        className="mb-5 size-20 rounded-2xl border border-line object-cover"
+      />
       <span className="inline-flex w-max items-center gap-2 rounded-full border border-line bg-surface py-1.5 pl-2.5 pr-3 font-mono text-[12.5px] font-medium text-muted">
         <i className="size-2 rounded-full bg-ok [animation:pulse-ring_2.2s_infinite]" aria-hidden />
         <T>{status}</T>
@@ -31,24 +40,15 @@ export default function Sidebar() {
       <p className="max-w-[34ch] text-[16.5px] text-muted">{pitch}</p>
 
       <div className="mt-6 flex flex-wrap items-center gap-2.5">
-        <a href="#projetos" className={`${btn} border-accent-btn bg-accent-btn text-accent-ink hover:brightness-110`}>
-          Ver projetos
+        <a href={hasProjects ? '#projetos' : '#contato'} className={`${btn} border-accent-btn bg-accent-btn text-accent-ink hover:brightness-110`}>
+          {hasProjects ? 'Ver projetos' : 'Falar comigo'}
         </a>
         {cv ? (
           <a href={cv} download className={`${btn} border-line bg-surface hover:border-ink`}>
             <FiDownload size={16} aria-hidden /> Baixar CV
           </a>
-        ) : (
-          <span aria-disabled="true" className={`${btn} cursor-not-allowed border-line bg-surface text-muted`}>
-            <FiDownload size={16} aria-hidden /> Baixar CV
-          </span>
-        )}
+        ) : null}
       </div>
-      {!cv && (
-        <p className="mt-2 text-xs">
-          <T>{cvPlaceholder}</T>
-        </p>
-      )}
 
       <nav aria-label="Seções" className="mt-10 hidden min-[960px]:block">
         {sections.map(({ id, label }) => (

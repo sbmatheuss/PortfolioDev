@@ -1,53 +1,46 @@
-// Tudo que aparece no site. Trechos "[ADICIONAR: ...]" são destacados na página.
+// Tudo que aparece no site.
 
 export const profile = {
   name: 'Matheus Braga',
   role: 'Desenvolvedor Full Stack Júnior',
   stack: 'React, Node & Python',
-  status: 'Disponível para vagas · [ADICIONAR: local/modalidade]',
+  status: 'Disponível para vagas',
   pitch:
     'Construo aplicações web completas, da interface ao banco de dados, e já tenho vivência prática em uma fintech.',
   email: 'sbmatheus20@gmail.com',
   github: 'https://github.com/sbmatheuss',
   linkedin: 'https://www.linkedin.com/in/matheusbraga1/',
   cv: '', // ex.: '/cv.pdf' (arquivo em public/)
-  cvPlaceholder: '[ADICIONAR: public/cv.pdf]',
 };
-
-export const sections = [
-  { id: 'sobre', label: 'Sobre' },
-  { id: 'projetos', label: 'Projetos' },
-  { id: 'experiencia', label: 'Experiência' },
-  { id: 'contato', label: 'Contato' },
-];
 
 export const about = {
   title: 'Código que resolve problema de negócio.',
   text: [
-    'Sou estudante de Análise e Desenvolvimento de Sistemas e estagiário Full Stack na NOSSA FINTECH, onde trabalho com Python, Flask e React e escrevo consultas SQL para ambientes de produção.',
-    'Minha base está no ecossistema JavaScript e TypeScript: interfaces com React e Next.js e APIs RESTful com Node.js e NestJS. Gosto de entender a regra de negócio antes de escrever código, porque é ela que decide se uma tela resolve o problema de quem usa.',
-    'Além do estágio, mantenho projetos completos com código aberto, como um sistema de passagens aéreas com pagamentos e um buscador de hotéis com autenticação. Aprendo rápido, trabalho bem em equipe e busco uma vaga júnior para evoluir em um time de produto.',
+    'Sou formado em Análise e Desenvolvimento de Sistemas e estagiário Full Stack na Nossa Fintech, onde desenvolvo e mantenho funcionalidades e APIs REST com Python, Flask e SQLAlchemy, integro webhooks e escrevo scripts SQL para consulta e análise de dados.',
+    'Minha base está no ecossistema JavaScript e TypeScript: interfaces com React e APIs RESTful com Node.js. No estágio, aprendi as regras de negócio dos produtos da empresa e como cada solução técnica atende às necessidades do negócio.',
+    'Aprendo rápido, trabalho bem em equipe e busco uma vaga júnior para evoluir em um time de produto.',
   ],
-  metrics: [
-    { value: '3', label: 'projetos full stack com código aberto' },
-    { value: '2', label: 'deploys públicos na Vercel' },
-    { value: '[ADICIONAR: número]', label: '[ADICIONAR: métrica de impacto do estágio]' },
-  ],
+  metrics: [],
   skills: [
     {
       title: 'Front-end',
-      context: 'Interfaces reativas com React e Next.js, tipadas com TypeScript.',
-      tags: ['React', 'Next.js', 'TypeScript', 'JavaScript', 'Tailwind CSS'],
+      context: 'Interfaces reativas com React, tipadas com TypeScript.',
+      tags: ['React', 'JavaScript', 'TypeScript'],
     },
     {
       title: 'Back-end',
-      context: 'APIs REST em Node e Python, com autenticação e integração a endpoints documentados.',
-      tags: ['Node.js', 'NestJS', 'Express', 'Python', 'Flask', 'JWT'],
+      context: 'APIs REST em Python e Node, com ORM, integração por webhooks e endpoints documentados.',
+      tags: ['Python', 'Flask', 'SQLAlchemy', 'Node.js', 'Express', 'APIs REST', 'Webhooks'],
     },
     {
-      title: 'Infra & qualidade',
-      context: 'Consultas SQL em produção no estágio, versionamento com Git e deploy na Vercel.',
-      tags: ['MySQL', 'MariaDB', 'PostgreSQL', 'MongoDB', 'DBeaver', 'Git & GitHub', 'Vercel'],
+      title: 'Banco de dados',
+      context: 'Bancos relacionais e NoSQL, com scripts SQL para consulta e análise de dados.',
+      tags: ['MySQL', 'MariaDB', 'MongoDB', 'DBeaver'],
+    },
+    {
+      title: 'Arquitetura e design',
+      context: 'Princípios para manter o código organizado, escalável e fácil de evoluir.',
+      tags: ['Microservices', 'Clean Principles', 'Design Patterns', 'Serverless'],
     },
     {
       title: 'Como eu trabalho',
@@ -60,71 +53,60 @@ export const about = {
 export const projects = {
   featured: [
     {
-      title: 'MaisUmVoo',
-      kind: 'Projeto pessoal · Full Stack · [ADICIONAR: ano]',
+      title: 'EuTatoo',
+      kind: 'Projeto em equipe · Full Stack · 2026',
       image: '',
-      imageAlt: 'Captura de tela do MaisUmVoo',
-      live: 'https://maisumvoo.vercel.app',
-      code: 'https://github.com/sbmatheuss/maisumvoo',
-      problem: 'Comprar passagem aérea exige comparar voos, preços e formas de pagamento em várias telas.',
-      solution:
-        'Busca de voos com filtros e autocomplete de aeroportos, pagamento simulado via Pix e Boleto (Stripe), sistema de milhas e agentes de IA (Claude).',
-      result: '[ADICIONAR: resultado mensurável do MaisUmVoo]',
-      tags: ['Next.js', 'TypeScript', 'Tailwind', 'Prisma', 'PostgreSQL', 'Stripe'],
-    },
-    {
-      title: 'BuscaHotéis',
-      kind: 'Projeto pessoal · Full Stack · [ADICIONAR: ano]',
-      image: '',
-      imageAlt: 'Captura de tela do BuscaHotéis',
+      imageAlt: 'Captura de tela do EuTatoo',
       live: '',
-      code: 'https://github.com/sbmatheuss/BuscaHot-is',
-      problem: 'Achar um hotel econômico com as comodidades certas obriga a filtrar tudo manualmente.',
-      solution:
-        'Filtros por comodidades, galeria de imagens e autenticação JWT, com API em Express e MongoDB e frontend em Next.js.',
-      result: '[ADICIONAR: resultado mensurável do BuscaHotéis]',
-      tags: ['Next.js', 'TypeScript', 'Express', 'MongoDB', 'Tailwind'],
-    },
-    {
-      title: 'WebService — Catálogo de Livros',
-      kind: 'Projeto pessoal · Full Stack · [ADICIONAR: ano]',
-      image: '',
-      imageAlt: 'Captura de tela do WebService',
-      live: 'https://web-service-jet.vercel.app',
-      code: 'https://github.com/sbmatheuss/WebService',
-      problem: 'Gerenciar um catálogo de livros sem busca nem visão geral dos dados.',
-      solution:
-        'CRUD completo, busca por título e autor, estatísticas e gráficos, com frontend React e API REST separados.',
-      result: '[ADICIONAR: resultado mensurável do WebService]',
-      tags: ['React', 'Express', 'SQLite', 'Knex'],
+      code: '',
+      description:
+        'Plataforma de gestão para tatuadores, com agenda, clientes, pagamentos, portfólio e notificações automáticas por WhatsApp e e-mail. Arquitetura hexagonal com Clean Architecture, fila de tarefas em segundo plano e testes automatizados.',
+      tags: ['Next.js', 'TypeScript', 'Tailwind', 'PostgreSQL', 'Prisma', 'Redis', 'BullMQ'],
     },
   ],
-  more: [
-    { title: '[ADICIONAR: trabalho menor 1]', text: '[ADICIONAR: descrição em uma linha]', href: '', tags: ['[ADICIONAR: stack]'] },
-    { title: '[ADICIONAR: trabalho menor 2]', text: '[ADICIONAR: descrição em uma linha]', href: '', tags: ['[ADICIONAR: stack]'] },
-  ],
+  more: [],
 };
 
 export const experience = [
   {
-    period: 'ago/2026 — hoje',
+    period: '4 meses · atual',
     title: 'Estagiário Full Stack Developer',
-    org: 'NOSSA FINTECH',
+    org: 'Nossa Fintech',
     bullets: [
-      'Criei scripts SQL para consultas em ambiente de produção (MySQL e MariaDB, com DBeaver). [ADICIONAR: resultado, se houver número]',
-      'Conectei endpoints à interface seguindo a documentação interna da empresa, com Python, Flask e React. [ADICIONAR: quantos endpoints ou telas]',
-      'Absorvi regras de negócio do setor financeiro e as apliquei no código.',
+      'Desenvolvi e mantive funcionalidades e APIs REST com Python, Flask e SQLAlchemy.',
+      'Integrei sistemas por meio de webhooks.',
+      'Conectei endpoints à interface seguindo a documentação interna, com React.',
+      'Criei scripts SQL no banco de dados para consulta e análise de dados (MySQL e MariaDB, com DBeaver).',
+      'Atuei com as regras de negócio dos produtos atualmente implementados pela empresa.',
     ],
   },
   {
-    period: '[ADICIONAR: ano de conclusão]',
-    title: 'Análise e Desenvolvimento de Sistemas',
-    org: '[ADICIONAR: instituição]',
+    period: '06/2024 — 12/2026',
+    title: 'Tecnólogo em Análise e Desenvolvimento de Sistemas',
+    org: 'Anhanguera',
+    bullets: ['Diploma concluído.'],
+  },
+  {
+    period: 'Certificação',
+    title: 'Formação Full Stack',
+    org: 'Rocketseat',
     bullets: [],
   },
 ];
 
 export const contact = {
   title: 'Vamos conversar sobre a sua vaga?',
-  text: 'Me chame por e-mail ou LinkedIn. Será um prazer apresentar meus projetos.',
+  text: 'Me chame por e-mail ou LinkedIn.',
 };
+
+const hasProjects = projects.featured.length + projects.more.length > 0;
+
+// A seção Projetos some do menu enquanto não houver projetos.
+export const sections = [
+  { id: 'sobre', label: 'Sobre' },
+  ...(hasProjects ? [{ id: 'projetos', label: 'Projetos' }] : []),
+  { id: 'experiencia', label: 'Experiência' },
+  { id: 'contato', label: 'Contato' },
+];
+
+export const numberOf = (id) => String(sections.findIndex((s) => s.id === id) + 1).padStart(2, '0');

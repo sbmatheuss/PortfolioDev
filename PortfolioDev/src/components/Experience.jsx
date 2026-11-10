@@ -4,7 +4,7 @@ import T from './T';
 
 export default function Experience() {
   return (
-    <Section id="experiencia" n="03" label="Experiência" title="Onde estou aprendendo na prática">
+    <Section id="experiencia" label="Experiência" title="Onde estou aprendendo na prática">
       {experience.map((job) => (
         <div
           key={job.title}
@@ -15,7 +15,7 @@ export default function Experience() {
           </time>
           <div>
             <h3 className="text-[17px] font-semibold">
-              {job.title} <em className="not-italic text-accent-text">· <T>{job.org}</T></em>
+              {job.title}{job.org && <em className="not-italic text-accent-text"> · {job.org}</em>}
             </h3>
             {job.bullets.length > 0 && (
               <ul className="ml-[18px] mt-2.5 list-disc text-[14.5px] text-muted">

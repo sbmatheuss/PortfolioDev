@@ -11,12 +11,8 @@ const iconLink =
 function Featured({ p }) {
   return (
     <article className="mb-5 overflow-hidden rounded-[18px] border border-line bg-surface transition duration-200 hover:-translate-y-0.5 hover:border-accent">
-      {p.image ? (
+      {p.image && (
         <img src={p.image} alt={p.imageAlt} loading="lazy" className="aspect-[16/7] w-full border-b border-line object-cover" />
-      ) : (
-        <div className="grid aspect-[16/7] w-full place-items-center border-b border-line bg-accent-soft p-4 text-center">
-          <T>{`[ADICIONAR: screenshot de ${p.title}]`}</T>
-        </div>
       )}
       <div className="px-6 pb-6 pt-[22px]">
         <div className="flex items-start justify-between gap-4">
@@ -32,26 +28,34 @@ function Featured({ p }) {
                 <FiArrowUpRight size={20} aria-hidden />
               </a>
             )}
-            <a className={iconLink} href={p.code} target="_blank" rel="noreferrer" aria-label={`Ver o código de ${p.title} no GitHub`}>
-              <FaGithub size={20} aria-hidden />
-            </a>
+            {p.code && (
+              <a className={iconLink} href={p.code} target="_blank" rel="noreferrer" aria-label={`Ver o código de ${p.title} no GitHub`}>
+                <FaGithub size={20} aria-hidden />
+              </a>
+            )}
           </div>
         </div>
 
-        <dl className="mt-[18px] grid gap-3.5 sm:grid-cols-3">
-          {[
-            ['Problema', p.problem],
-            ['Solução', p.solution],
-            ['Resultado', p.result],
-          ].map(([term, desc], i) => (
-            <div key={term} className={`border-t-2 pt-2.5 ${i === 2 ? 'border-accent' : 'border-line'}`}>
-              <dt className="mb-1 font-mono text-[11.5px] font-medium uppercase tracking-[0.12em] text-muted">{term}</dt>
-              <dd className={`text-sm leading-normal ${i === 2 ? 'font-semibold' : ''}`}>
-                <T>{desc}</T>
-              </dd>
-            </div>
-          ))}
-        </dl>
+        {p.description && <p className="mt-4 text-[15px] leading-relaxed text-muted">{p.description}</p>}
+
+        {p.problem && (
+          <dl className="mt-[18px] grid gap-3.5 sm:grid-cols-3">
+            {[
+              ['Problema', p.problem],
+              ['Solução', p.solution],
+              ['Resultado', p.result],
+            ]
+              .filter(([, desc]) => desc)
+              .map(([term, desc], i, arr) => (
+                <div key={term} className={`border-t-2 pt-2.5 ${i === arr.length - 1 ? 'border-accent' : 'border-line'}`}>
+                  <dt className="mb-1 font-mono text-[11.5px] font-medium uppercase tracking-[0.12em] text-muted">{term}</dt>
+                  <dd className="text-sm leading-normal">
+                    <T>{desc}</T>
+                  </dd>
+                </div>
+              ))}
+          </dl>
+        )}
         <Tags items={p.tags} />
       </div>
     </article>
@@ -60,7 +64,7 @@ function Featured({ p }) {
 
 export default function Projects() {
   return (
-    <Section id="projetos" n="02" label="Projetos" title="Trabalho selecionado">
+    <Section id="projetos" label="Projetos" title="Trabalho selecionado">
       {projects.featured.map((p) => (
         <Featured key={p.title} p={p} />
       ))}

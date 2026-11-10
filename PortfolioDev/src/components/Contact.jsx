@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { FaLinkedin } from 'react-icons/fa';
-import { contact, profile } from '../data';
+import { contact, numberOf, profile } from '../data';
 import Reveal from './Reveal';
 
 const btn =
@@ -23,7 +23,7 @@ export default function Contact() {
   return (
     <Reveal id="contato">
       <div className="rounded-[22px] bg-ink p-7 text-bg sm:p-10">
-        <div className="mb-[18px] font-mono text-[12.5px] font-medium uppercase tracking-[0.14em] opacity-70">04 · Contato</div>
+        <div className="mb-[18px] font-mono text-[12.5px] font-medium uppercase tracking-[0.14em] opacity-70">{numberOf('contato')} · Contato</div>
         <h2 className="mb-4 max-w-[16ch] font-display text-[clamp(28px,3.4vw,40px)] font-bold leading-[1.15] tracking-tight">
           {contact.title}
         </h2>
