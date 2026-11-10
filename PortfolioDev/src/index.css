@@ -1,0 +1,79 @@
+@import "tailwindcss";
+
+:root {
+  --bg: #f6f4ef;
+  --surface: #ffffff;
+  --ink: #16181d;
+  --muted: #5b616e;
+  --line: #e3dfd6;
+  --accent: #e2552b;
+  --accent-text: #b83c0a;
+  --accent-btn: #b83c0a;
+  --accent-ink: #ffffff;
+  --accent-soft: #fbe3d9;
+  --ok: #1f9d61;
+}
+
+:root[data-theme="dark"] {
+  --bg: #0f1115;
+  --surface: #171a21;
+  --ink: #eceae4;
+  --muted: #9aa0ab;
+  --line: #262a33;
+  --accent: #ff7a4d;
+  --accent-text: #ff7a4d;
+  --accent-btn: #ff7a4d;
+  --accent-ink: #14100e;
+  --accent-soft: #2a1b15;
+  --ok: #3ccf8e;
+}
+
+@theme inline {
+  --font-display: "Bricolage Grotesque Variable", system-ui, sans-serif;
+  --font-sans: "Inter Variable", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-accent: var(--accent);
+  --color-accent-text: var(--accent-text);
+  --color-accent-btn: var(--accent-btn);
+  --color-accent-ink: var(--accent-ink);
+  --color-accent-soft: var(--accent-soft);
+  --color-ok: var(--ok);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-bg font-sans text-base leading-relaxed text-ink antialiased transition-colors duration-200;
+}
+
+::selection {
+  background: var(--accent-btn);
+  color: var(--accent-ink);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent-text);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+@keyframes pulse-ring {
+  0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--ok) 60%, transparent); }
+  70% { box-shadow: 0 0 0 8px transparent; }
+  100% { box-shadow: 0 0 0 0 transparent; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
