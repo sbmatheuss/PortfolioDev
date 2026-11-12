@@ -2,6 +2,7 @@ import { FaGithub, FaLinkedin } from 'react-icons/fa';
 import { FiDownload, FiMail } from 'react-icons/fi';
 import { profile, sections } from '../data';
 import foto from '../assets/foto-perfil.jpg';
+import cv from '../assets/cv-matheusbraga.pdf';
 import useScrollSpy from '../hooks/useScrollSpy';
 import ThemeToggle from './ThemeToggle';
 import T from './T';
@@ -14,7 +15,7 @@ const iconLink =
 
 export default function Sidebar() {
   const active = useScrollSpy(ids);
-  const { name, role, stack, status, pitch, github, linkedin, cv } = profile;
+  const { name, role, stack, status, pitch, github, linkedin } = profile;
   const hasProjects = sections.some((s) => s.id === 'projetos');
 
   return (
@@ -44,8 +45,8 @@ export default function Sidebar() {
           {hasProjects ? 'Ver projetos' : 'Falar comigo'}
         </a>
         {cv ? (
-          <a href={cv} download className={`${btn} border-line bg-surface hover:border-ink`}>
-            <FiDownload size={16} aria-hidden /> Baixar CV
+          <a href={cv} target="_blank" rel="noreferrer" className={`${btn} border-line bg-surface hover:border-ink`}>
+            <FiDownload size={16} aria-hidden /> Currículo
           </a>
         ) : null}
       </div>

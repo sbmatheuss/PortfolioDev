@@ -10,7 +10,6 @@ export const profile = {
   email: 'sbmatheus20@gmail.com',
   github: 'https://github.com/sbmatheuss',
   linkedin: 'https://www.linkedin.com/in/matheusbraga1/',
-  cv: '', // ex.: '/cv.pdf' (arquivo em public/)
 };
 
 export const about = {
@@ -43,6 +42,16 @@ export const about = {
       tags: ['Microservices', 'Clean Principles', 'Design Patterns', 'Serverless'],
     },
     {
+      title: 'Gestão e documentação',
+      context: 'Organizo tarefas no Jira e mantenho notas e documentação técnica em um vault no Obsidian.',
+      tags: ['Jira', 'Obsidian'],
+    },
+    {
+      title: 'Desenvolvimento com IA',
+      context: 'Spec-Driven Development (SDD) com Claude Code: especificação antes do código, com a IA implementando e eu revisando.',
+      tags: ['SDD', 'Claude Code', 'IA generativa'],
+    },
+    {
       title: 'Como eu trabalho',
       context: 'Aprendo rápido, entendo a regra de negócio antes de codar e sigo a documentação do time.',
       tags: ['Regra de negócio', 'Documentação de API', 'Trabalho em equipe'],
@@ -69,7 +78,7 @@ export const projects = {
 
 export const experience = [
   {
-    period: '4 meses · atual',
+    period: '08/2026 — 11/2026',
     title: 'Estagiário Full Stack Developer',
     org: 'Nossa Fintech',
     bullets: [
@@ -87,8 +96,14 @@ export const experience = [
     bullets: ['Diploma concluído.'],
   },
   {
-    period: 'Certificação',
+    period: '04/2026',
     title: 'Formação Full Stack',
+    org: 'Rocketseat',
+    bullets: [],
+  },
+  {
+    period: '03/2025',
+    title: 'Git e GitHub',
     org: 'Rocketseat',
     bullets: [],
   },
